@@ -10,7 +10,9 @@ import datetime
 import hashlib
 from sklearn.ensemble import IsolationForest
 
-# --- 1. DATA ENGINE (REAL US GOV DATA) ---
+# ==========================================
+# 1. CORE DATA ENGINE (REAL US GOV DATA)
+# ==========================================
 def fetch_real_us_data():
     search_url = "https://api.usaspending.gov/api/v2/search/spending_by_award/"
     payload = {
@@ -52,7 +54,7 @@ def run_forensics(df):
     model = IsolationForest(contamination=0.06, random_state=42)
     df['Anomaly_Flag'] = model.fit_predict(df[['Amount']])
 
-    # Benford's Law Prep
+    # Benford's Law
     df['first_digit'] = df['Amount'].apply(lambda x: int(str(abs(float(x))).replace('.', '').lstrip('0')[0]) if abs(float(x)) > 0 else 0)
 
     # Formatting
@@ -72,7 +74,9 @@ if df_master.empty:
 
 expected_benford = np.log10(1 + 1/np.arange(1, 10))
 
-# --- 2. UI SETUP ---
+# ==========================================
+# 2. DASHBOARD UI
+# ==========================================
 app = dash.Dash(__name__, title='AEGIS', update_title=None)
 
 app.index_string = '''
@@ -191,7 +195,7 @@ app.layout = html.Div(style={
         ])
     ]),
 
-    # PERMANENT AUDIT LEDGER
+    # AUDIT LEDGER
     html.Div(style={'backgroundColor': '#0e1117', 'display': 'flex', 'flexDirection': 'column', 'marginBottom': '30px'}, children=[
         html.H4("CRITICAL AUDIT LOG // ANOMALY IDENTIFICATION", style={'fontSize': '11px', 'color': '#8e95a1', 'marginBottom': '10px'}),
         dash_table.DataTable(
@@ -231,7 +235,9 @@ app.layout = html.Div(style={
     ])
 ])
 
-# --- 3. CALLBACKS ---
+# ==========================================
+# 3. CALLBACKS
+# ==========================================
 @app.callback(
     [Output('live-clock', 'children'),
      Output('live-console', 'children'),
@@ -282,14 +288,14 @@ def update_system(n, current_logs, current_ledger):
         html.Span(e['status'], style={'color': e['color'], 'fontWeight': 'bold'})
     ]) for e in updated_logs]
 
-    # 2. Update Ledger (Deduplicated)
+    # 2. Update Ledger
     updated_ledger = list(current_ledger)
     if is_anomaly and row['Award ID'] not in existing_ids:
         updated_ledger.append(row.to_dict())
             
     unique_anomaly_count = len(updated_ledger)
 
-    # 3. Graphs - Benford
+    # 3. Benford Graphs
     df_vis = df_master.iloc[:step+1]
     obs = df_vis['first_digit'].value_counts(normalize=True).reindex(range(1,10), fill_value=0)
 
