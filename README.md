@@ -18,5 +18,5 @@ An automated engine for detecting federal expenditure anomalies. Utilizes a dual
 
 ## How to Run
 1. Clone the repository: `git clone https://github.com/Kenneth-Thakur/Aegis-Detector.git`
-2. Install dependencies: `pip install dash pandas requests scikit-learn plotly`
-3. Run the application: `python aegis_final.py`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run the application: `python aegis.py`
