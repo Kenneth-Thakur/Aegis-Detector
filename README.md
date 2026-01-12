@@ -1,6 +1,6 @@
 # Aegis: Public Expenditure Anomaly Detector
 
-An automated engine for detecting federal expenditure anomalies. Utilizes a dual-layer forensic pipeline to scrub high-velocity spending data and reconstruct fiscal patterns into formal audit logs, enabling early detection of financial fraud and systemic waste.
+An automated engine for detecting federal expenditure anomalies. Utilizes a dual-layer forensic pipeline to scrub high-volume spending data and reconstruct fiscal patterns into formal audit logs, enabling early detection of financial fraud and systemic waste.
 
 ## Dashboard Preview
 ![Dashboard Screenshot](aegis_graph.png)
