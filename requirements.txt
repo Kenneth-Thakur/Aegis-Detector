@@ -1,5 +1,6 @@
 dash
 pandas
+numpy
 requests
 scikit-learn
 plotly
