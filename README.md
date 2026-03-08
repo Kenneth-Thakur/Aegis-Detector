@@ -1,6 +1,6 @@
 # Aegis: Public Expenditure Anomaly Detector
 
-An automated engine for detecting federal expenditure anomalies. Utilizes a dual-layer forensic pipeline to scrub high-volume spending data and reconstruct fiscal patterns into formal audit logs, enabling early detection of financial fraud and systemic waste.
+A forensic ML engine that analyzes 10,000+ federal spending records using Isolation Forest, Benford's Law, and composite risk scoring.
 
 ## Dashboard Preview
 ![Dashboard Screenshot](aegis_graph.png)
@@ -12,9 +12,9 @@ An automated engine for detecting federal expenditure anomalies. Utilizes a dual
 - **Data Source:** USASpending API & Gov Records
 
 ## Core Functionality
-- **Forensic Auditing:** Automated detection of digit-frequency deviations in transaction amounts using Benford's Law.
+- **Forensic Auditing:** Detects anomalies in spending data using Benford's Law digit-frequency analysis.
 - **Anomaly Identification:** A machine learning engine that flags high-risk transactions via Isolation Forest outlier detection.
-- **Live Ledger Generation:** A real-time auditing feed that reconstructs spending patterns into subject-led audit logs and risk levels.
+- **Live Ledger Generation:** Real-time scanning feed that flags and logs high-risk transactions.
 
 ## How to Run
 1. Clone the repository: `git clone https://github.com/Kenneth-Thakur/Aegis-Detector.git`
